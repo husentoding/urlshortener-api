@@ -25,7 +25,7 @@ public class UrlServiceImpl implements UrlService {
         return null;
       UrlMap map = urlMapDao.findByTargetPath(targetPath);
 
-      response.setRedirectTarget(map.getTargetPath());
+      response.setRedirectTarget(map.getSourceUrl());
       return response;
     } catch (Exception e) {
       BaseError error = new BaseError();

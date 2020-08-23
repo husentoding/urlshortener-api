@@ -19,6 +19,26 @@ public class UrlController {
   @Autowired
   private UrlService urlService;
 
+  @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<UrlMapResponse> getUrlMap(HttpServletRequest request,
+                                                  @RequestParam(value = "source", required = true) String sourceUrl) {
+    UrlMapResponse response = urlService.getUrlMap(sourceUrl);
+
+    if (response.getError() == null) {
+      if (response.getRedirectTarget() == null) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+      }
+      return ResponseEntity.ok(response);
+    }
+
+    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+  }
+
+//  curl --location --request POST 'http://localhost:8080/url/' \
+//          --header 'Content-Type: application/json' \
+//          --data-raw '{
+//          "sourceUrl": "instagram.com"
+//  }'
   @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<UrlMapResponse> createUrlMap(HttpServletRequest request,
                                                      @RequestBody NewUrlRequest urlRequest) {
