@@ -16,3 +16,4 @@
 - Default config given by scalegrid
 - Singapore server
 - Create new user for app
+- Whitelist local IP
