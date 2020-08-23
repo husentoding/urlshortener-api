@@ -19,6 +19,8 @@ public class UrlController {
   @Autowired
   private UrlService urlService;
 
+//  curl --location --request GET 'http://localhost:8080/url?source=4491b02d-aae2-499f-acfa-7fe4d5777baa'
+
   @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<UrlMapResponse> getUrlMap(HttpServletRequest request,
                                                   @RequestParam(value = "source", required = true) String sourceUrl) {
